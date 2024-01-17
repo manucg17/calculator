@@ -21,59 +21,82 @@ def calculate(numbers,operators,sub,add,mul,div):
     result = 0
     i = 0
     divbyzero=False
+    continue_flag = True
     # for i in range(0,len(operators)): ===> Cannot use For --> since this value will not change even if length varies within the loop, so while is used.
-    while i < len(operators):
-        print(f"index value of operators in Calculate is {i}\n")
-        if operators[i] == "/":
-            print(f"{i} is the index value, {numbers[i]}/{numbers[i+1]}")
-            print(f"{len(operators)}")
-            if (numbers[i+1] == 0):
-                print(f"Number cannot be divided by {numbers[i+1]}")
-                divbyzero = True 
-                break
-            result = numbers[i]/numbers[i+1]
-            print(f"{numbers} --> Caluculate Fn --> before update list function\n")
-            numbers= update_list(i,numbers,operators,result)
-            print(f"{numbers} --> Caluculate Fn --> After update list function\n")
-            div = div-1
-            i = i-1
-            print(f"division reduced to: {div}\nlength of operators is {len(operators)}\n remaining operators are {operators}")
-        elif div == 0 and operators[i] == "*":
-            print(f"{i} index, {numbers[i]}*{numbers[i+1]}")
-            print(f"{len(operators)}")
-            result = numbers[i]*numbers[i+1]
-            numbers= update_list(i,numbers,operators,result)
-            mul = mul-1
-            i = i-1
-            print(f"multiplication reduced to:{mul}\nlength of operators is {len(operators)}\n remaining operators are {operators}")
-        elif div == 0 and mul == 0 and operators[i] == "+":
-            print(f"{i} index, {numbers[i]}+{numbers[i+1]}")
-            print(f"{len(operators)}")
-            result = numbers[i]+numbers[i+1]
-            print(f"{numbers} --> Caluculate Fn --> before update list function\n")
-            numbers= update_list(i,numbers,operators,result)
-            print(f"{numbers} --> Caluculate Fn --> After update list function\n")
-            add = add-1
-            i = i-1
-            print(f"addition reduced to:{add}\nlength of operators is {len(operators)}\n remaining operators are {operators}")
-        elif div == 0 and mul == 0 and add == 0 and operators[i] == "-":
-            print(f"{i} index, {numbers[i]}-{numbers[i+1]}")
-            print(f"{len(operators)}")
-            result = numbers[i]-numbers[i+1]
-            numbers= update_list(i,numbers,operators,result)
-            sub = sub-1
-            i = i-1
-            print(f"subtraction reduced to:{sub}\nlength of operators is {len(operators)}\n remaining operators are {operators}")
-        i = i+1
-        print(f"{i} value of i --After-- while loop\n")
+    while continue_flag == True:
+        i = 0
+        while i < len(operators):
+            print(f"index value of operators in Calculate is {i}\n")
+            print(f"value of Sub:{sub}\n")
+            print(f"value of Add:{add}\n")
+            print(f"value of Mul:{mul}\n")
+            print(f"value of Div:{div}\n")
+            if operators[i] == "/":
+                print(f"Current Index value: {i}, {numbers[i]}/{numbers[i+1]}")
+                print(f"{len(operators)}")
+                if (numbers[i+1] == 0):
+                    print(f"Number cannot be divided by {numbers[i+1]}")
+                    divbyzero = True 
+                    break
+                result = numbers[i]/numbers[i+1]
+                print(f"{numbers} --> Calculate Fn --> before update list function\n")
+                numbers= update_list(i,numbers,operators,result)
+                print(f"{numbers} --> Calculate Fn --> After update list function\n")
+                div = div-1
+                i = i-1
+                print(f"Division reduced to: {div}\nNew length of Operators: {len(operators)}\nRemaining Operators in the List: {operators}")
+                if div == 0:
+                    continue_flag = True
+                    break
+            elif div == 0 and operators[i] == "*":
+                print(f"Current Index value: {i}, {numbers[i]}*{numbers[i+1]}")
+                print(f"{len(operators)}")
+                result = numbers[i]*numbers[i+1]
+                numbers= update_list(i,numbers,operators,result)
+                mul = mul-1
+                i = i-1
+                print(f"Multiplication reduced to: {mul}\nNew length of Operators: {len(operators)}\nRemaining Operators in the List: {operators}")
+                if mul == 0:
+                    continue_flag = True
+                    break
+            elif div == 0 and mul == 0 and operators[i] == "+":
+                print(f"Current Index value: {i}, {numbers[i]}+{numbers[i+1]}")
+                print(f"{len(operators)}")
+                result = numbers[i]+numbers[i+1]
+                print(f"{numbers} --> Calculate Fn --> before update list function\n")
+                numbers= update_list(i,numbers,operators,result)
+                print(f"{numbers} --> Calculate Fn --> After update list function\n")
+                add = add-1
+                i = i-1
+                print(f"Addition reduced to: {add}\nNew length of Operators: {len(operators)}\nRemaining Operators in the List: {operators}")
+                if add == 0:
+                    continue_flag = True
+                    break
+            elif div == 0 and mul == 0 and add == 0 and operators[i] == "-":
+                print(f"Current Index value: {i}, {numbers[i]}-{numbers[i+1]}")
+                print(f"{len(operators)}")
+                result = numbers[i]-numbers[i+1]
+                numbers= update_list(i,numbers,operators,result)
+                sub = sub-1
+                i = i-1
+                print(f"Subtraction reduced to: {sub}\nNew length of Operators: {len(operators)}\nRemaining Operators in the List: {operators}")
+                if sub == 0:
+                    continue_flag = False
+                    break
+            i = i+1
+            print(f"value of index {i} --After-- while loop\n")       
     return result,divbyzero
 
 input_str= input("Enter the Equation to be calculated without Brackets:\n")
+if input_str[0] == "-":
+    input_str = str(0) + input_str
+elif input_str[0] == "+":
+    input_str = str(0) + input_str
 
 # Initialize variables
 current_number = ""
 numbers = []
-divbyzero = False
+divbyzero = False        
 if input_str[0].isdigit() and input_str[-1].isdigit():
     for char in input_str:
         if char.isdigit():
@@ -87,7 +110,7 @@ if input_str[0].isdigit() and input_str[-1].isdigit():
 else:
     print(f"Entered Equation should Start or End with a digit. Please Verify Input --> {input_str}\n")
     exit(-1)
-print("Numbers used here are    :", numbers)
+print(f"Numbers used here are :\n{numbers}")
 
 # Initialize operators
 current_operator = ""
@@ -112,7 +135,7 @@ print (f"Sub -> {sub}\nAdd -> {add}\nMul -> {mul}\nDiv -> {div}\n ")
 
 Result, divbyzero = calculate(numbers,operators,sub,add,mul,div)
 if divbyzero:
-    print(f"Unexpeted input resulting in division by zero")
+    print(f"Unexpected input resulting in division by zero")
 else:
     print(f"Output for {input_str}: {Result}")
     
