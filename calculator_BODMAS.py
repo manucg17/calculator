@@ -20,9 +20,10 @@ def update_list(index_val,number_val,operator_val,result_val):
 def calculate(numbers,operators,sub,add,mul,div):
     result = 0
     i = 0
+    divbyzero=False
     # for i in range(0,len(operators)): ===> Cannot use For --> since this value will not change even if length varies within the loop, so while is used.
     while i < len(operators):
-        print(f"{i} value for while loop before if in Calculate\n")
+        print(f"index value of operators in Calculate is {i}\n")
         if operators[i] == "/":
             print(f"{i} is the index value, {numbers[i]}/{numbers[i+1]}")
             print(f"{len(operators)}")
@@ -85,6 +86,7 @@ if input_str[0].isdigit() and input_str[-1].isdigit():
         numbers.append(int(current_number))
 else:
     print(f"Entered Equation should Start or End with a digit. Please Verify Input --> {input_str}\n")
+    exit(-1)
 print("Numbers used here are    :", numbers)
 
 # Initialize operators
@@ -109,7 +111,6 @@ print("Arithmetic operators used:", operators)
 print (f"Sub -> {sub}\nAdd -> {add}\nMul -> {mul}\nDiv -> {div}\n ")
 
 Result, divbyzero = calculate(numbers,operators,sub,add,mul,div)
-print(f"Value for Flag div by zero {divbyzero}")
 if divbyzero:
     print(f"Unexpeted input resulting in division by zero")
 else:
