@@ -118,18 +118,18 @@ operators = []
 (sub,add,mul,div) = (0,0,0,0)
 
 for i in range (len(input_str)):
-    if(input_str[i] == '-'):
+    if(input_str[i] == '/'):
         operator_check(i,input_str,operators,current_operator)
-        sub= sub + 1
-    elif(input_str[i] == '+'):
-        operator_check(i,input_str,operators,current_operator)
-        add = add + 1
+        div = div + 1
     elif(input_str[i] == '*'):
         operator_check(i,input_str,operators,current_operator)
         mul = mul + 1
-    elif(input_str[i] == '/'):
+    elif(input_str[i] == '+'):
         operator_check(i,input_str,operators,current_operator)
-        div = div + 1
+        add = add + 1
+    elif(input_str[i] == '-'):
+        operator_check(i,input_str,operators,current_operator)
+        sub= sub + 1
 print("Arithmetic operators used:", operators)
 print (f"Sub -> {sub}\nAdd -> {add}\nMul -> {mul}\nDiv -> {div}\n ")
 
