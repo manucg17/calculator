@@ -153,7 +153,7 @@ if divbyzero:
     print(f"Unexpected input resulting in division by zero")
 else:
     print(f"\n")
-    print(format("****","*^26"))
+    print(format("****","*^22"))
     print(f"Solving Equation:\n{input_str} = {Result}")
-    print(format("****","*^26"))
+    print(format("****","*^22"))
     print(f"\n")
